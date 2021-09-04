@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../components/Navbar/Navbar.Component';
-
 const DefaultLayout =(props) => {
 
     return (

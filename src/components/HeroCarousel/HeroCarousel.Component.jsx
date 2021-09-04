@@ -1,19 +1,7 @@
 import React, { useState } from "react";
 import HeroSlider from 'react-slick';
+import { NextArrow, PrevArrow } from "./Arrows.Component";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-function NextArrow(){
-    return(<>
-
-    </>)
-}
-function PrevArrow(){
-    return(<>
-    
-    </>)
-}
 
 const HeroCarousel =()=>{
 
@@ -25,17 +13,17 @@ const HeroCarousel =()=>{
     ]);
 
     const settingsLG = {
-        arrows:true,
-        autoplay:true,
-        dots: true,
-        centerMode:true,
-        centerPadding:"100px",
-        slidesToShow:1,
+        arrows: true,
+        autoplay: true,
+        centerMode: true,
+        centerPadding: "20px",
+        slidesToShow: 1,
         infinite: true,
-        speed: 500,
-        slidesToScroll: 1,
+        slideToScroll: 1,
         nextArrow: <NextArrow />,
-        PrevArrow : <PrevArrow />
+        prevArrow: <PrevArrow />,
+
+       
 
       };
 
@@ -46,8 +34,39 @@ const HeroCarousel =()=>{
         infinite: true,
         speed: 500,
         slidesToScroll: 1,
-        nextArrow: <NextArrow />,
-        PrevArrow : <PrevArrow />
+        
 
       };
-}
+
+      return (
+            <>
+                <div className="lg:hidden">
+                    <HeroSlider {...settings}>
+                        { images.map((image) => (
+                            <div className="w-full h-56 md:h-80 py-3">
+                                <img src={image} alt="Hero Banner" className="w-full h-full rounded-md object-center"/>
+
+                            </div>
+                        ))}
+                    </HeroSlider>
+                </div>
+                <div className="hidden lg:block">
+                    <HeroSlider {...settingsLG}>
+                        {images.map((image) =>(
+                            <div className="w-full h-96 px-2 py-3 ">
+                                <img src={image} alt="Hero Banner" className="w-full h-full rounded-md object-center" />
+
+                            </div>
+
+                        ))}
+
+                    </HeroSlider>
+
+                </div>
+      
+      
+      </>
+      );
+};
+
+export default HeroCarousel;

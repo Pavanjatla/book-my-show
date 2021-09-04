@@ -1,9 +1,9 @@
 import React from "react";
 import DefaultHoc from "./HOC/Default.HOC";
 
-function HomePage(){
-  return <h1>This is  HomePage</h1>;
-}
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import HomePage from "./pages/Home.Page";
 
 function App() {
   return (
