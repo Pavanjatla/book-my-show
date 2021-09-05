@@ -8,8 +8,8 @@ import React from "react";
                  <img src={props.src} alt="poster" className="w-full h-full rounded-md" />
 
              </div>
-             <h3 className="text-lg font-bold text-gray-800">Fast and Furious 9</h3>
-             <p className="text-sm text-gray-700">Action/Adventure/Crime/Thriller</p>
+             <h3 className={`text-lg font-bold ${props.isDark ? "text-white":"text-gray-800"} `}>{props.title}</h3>
+             <p className={`text-sm ${props.isDark ? "text-white":"text-gray-800"}`}>{props.subtitle}</p>
          </div>
      )
 
