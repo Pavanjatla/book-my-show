@@ -38,7 +38,9 @@ const PosterSlider =(props)=>{
         ],
     };
 
-    const {posters,title,subtitle,isDark} =props;
+    const {posters,title,subtitle,isDark , config} =props;
+
+    const currentSettings= config ? config : settings;
 
     return(
         <>  
@@ -50,7 +52,7 @@ const PosterSlider =(props)=>{
                     {subtitle}
                 </p>
             </div>
-            <Slider {...settings}>
+            <Slider {...currentSettings}>
                 {posters.map((each) =>(
                     <Poster { ...each } isDark={isDark} />              
                      ))}
