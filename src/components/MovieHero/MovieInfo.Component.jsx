@@ -1,22 +1,45 @@
 import React from "react";
+import { useState } from "react";
+import PaymentModal from "../PaymentModal/Payment.Component";
 
 const MovieInfo =({movie})=>{
-    return (<>
+    const [isOpen , setIsOpen] = useState(false);
+    const [price , setPrice]= useState(0);
+
+    const rentMovies =() =>{
+        setIsOpen(true);
+        setPrice(149);
+    };
+
+    const buyMovies =() =>{
+        setIsOpen(true);
+        setPrice(599);
+    };
+
+
+    const genres = movie.genres?.map(({ name }) => name).join(", ");
+    return (
+        <>
+
+            <PaymentModal setIsOpen={setIsOpen} isOpen={isOpen} price={price}/>
+
             <div className="flex flex-col gap-8">
                 <h1 className="text-white text-5xl font-bold">{movie.original_title}
 
                 </h1>
                 <div className="flex flex-col gap-5 text-white">
-                        <h4>4K ratings</h4>
-                        <h4>English, Hindi, Telugu, Tamil</h4>
-                        <h4>{movie.overview}</h4>
+                           <h4>4k ratings</h4>
+                            <h4>English, Hindi, Kannada, Tamil, Telugu</h4>
+                            <h4>
+                                {movie.runtime} min • {genres}{" "}
+                            </h4>
                 </div>
                 <div className="flex items-center gap-3 w-full">
-                    <button className="bg-red-500 w-full py-3 text-white font-semibold rounded-lg">
-                            Rent ₹150
+                    <button onClick={rentMovies} className="bg-red-500 w-full py-3 text-white font-semibold rounded-lg">
+                            Rent ₹149
                     </button>
-                    <button className="bg-red-500 w-full py-3 text-white font-semibold rounded-lg">
-                            Buy ₹550
+                    <button onClick={buyMovies} className="bg-red-500 w-full py-3 text-white font-semibold rounded-lg" >
+                            Buy ₹599
                     </button>
 
                 </div>

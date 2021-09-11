@@ -1,12 +1,17 @@
 import React from 'react';
 import {BiSearch,BiChevronDown,BiMenu,BiShareAlt } from 'react-icons/bi';
+import { useContext } from 'react';
+import { MovieContext } from '../../context/Movie.context';
 
 function NavSm(){
+
+    const {movie}= useContext(MovieContext);
+
     return(
     <>
     <div className="text-dark-800 flex items-center justify-between">
         <div>
-            <h3 className= "text-xl font-bold"> Fast and Furious 9 </h3>
+            <h3 className= "text-xl font-bold"> {movie.original_title} </h3>
         </div>
         <div className="w-8 h-8">
             <BiShareAlt className="w-full h-full" />

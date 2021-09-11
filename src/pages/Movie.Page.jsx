@@ -1,4 +1,8 @@
 import React from "react";
+import { useParams } from "react-router";
+import axios from "axios";
+import { useContext,useEffect,useState } from "react";
+import { MovieContext } from "../context/Movie.context";
 import MovieHero from "../components/MovieHero/MovieHero.Component";
 import {FaCcVisa ,FaCcAmazonPay} from "react-icons/fa";
 import Slider from "react-slick";
@@ -6,6 +10,31 @@ import Cast from "../components/Cast/Cast.Component";
 import PosterSlider from "../components/PosterSlider/PosterSlider.Component";
 
 const MoviePage =() =>{
+
+    const {movie}=useContext(MovieContext);
+    const {id} =useParams();
+
+    const [cast ,setCast]=useState([]);
+
+    const [similarMovies, setSimilarMovies] =useState([]);
+
+    useEffect(() => {
+        const requestCast = async () => {
+            const getCast = await axios.get(`/movie/${id}/credits`);
+            setCast(getCast.data.cast);
+        };
+        requestCast();
+    }, [id]);
+
+    useEffect(() => {
+        const requestSimilarMovies = async () => {
+            const getSimilarMovies = await axios.get(`/movie/${id}/similar`);
+            setSimilarMovies(getSimilarMovies.data.results);
+        };
+        requestSimilarMovies();
+    }, [id]);
+
+  
 
     const settingsCast = {
         infinite: false,
@@ -73,83 +102,8 @@ const MoviePage =() =>{
         ],
     };
 
-    const cast = [
-        {
-            profile_path:
-                "https://media.vanityfair.com/photos/5f6e0d388f3d1388648ddf94/4:3/w_1779,h_1334,c_limit/vin.jpg",
-            original_name: "Vin Diesel",
-            character: "Dominic Toretto",
-        },
-        {
-            profile_path:
-                "https://media.vanityfair.com/photos/5f6e0d388f3d1388648ddf94/4:3/w_1779,h_1334,c_limit/vin.jpg",
-            original_name: "Vin Diesel",
-            character: "Dominic Toretto",
-        },
-        {
-            profile_path:
-                "https://media.vanityfair.com/photos/5f6e0d388f3d1388648ddf94/4:3/w_1779,h_1334,c_limit/vin.jpg",
-            original_name: "Vin Diesel",
-            character: "Dominic Toretto",
-        },
-        {
-            profile_path:
-                "https://media.vanityfair.com/photos/5f6e0d388f3d1388648ddf94/4:3/w_1779,h_1334,c_limit/vin.jpg",
-            original_name: "Vin Diesel",
-            character: "Dominic Toretto",
-        },
-        {
-            profile_path:
-                "https://media.vanityfair.com/photos/5f6e0d388f3d1388648ddf94/4:3/w_1779,h_1334,c_limit/vin.jpg",
-            original_name: "Vin Diesel",
-            character: "Dominic Toretto",
-        },
-        {
-            profile_path:
-                "https://media.vanityfair.com/photos/5f6e0d388f3d1388648ddf94/4:3/w_1779,h_1334,c_limit/vin.jpg",
-            original_name: "Vin Diesel",
-            character: "Dominic Toretto",
-        },
-        {
-            profile_path:
-                "https://media.vanityfair.com/photos/5f6e0d388f3d1388648ddf94/4:3/w_1779,h_1334,c_limit/vin.jpg",
-            original_name: "Vin Diesel",
-            character: "Dominic Toretto",
-        },
-    ];
 
-    const similarMovies = [
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@heart_202006300400.png,ox-24,oy-617,ow-29:ote-OTMlICAxMWsgdm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70/et00122566-rhfsjjrlrc-portrait.jpg",
-            title:"Shan-Chi and the legend of ten Rings",
-            subtitle:"Action / Adventure / Fantacy"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@heart_202006300400.png,ox-24,oy-617,ow-29:ote-ODAlICA2ayB2b3Rlcw%3D%3D,ots-29,otc-FFFFFF,oy-612,ox-70/et00056556-cmljhpnhcd-portrait.jpg",
-            title:"Fast and Furious 9",
-            subtitle:"Action / Adventure / Crime / Thriller"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@heart_202006300400.png,ox-24,oy-617,ow-29:ote-NzAlICA4NjYgdm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70/et00308822-bbujjtsfjz-portrait.jpg",
-            title:"NOtokka Jillala Andagaadu",
-            subtitle:"Comedy / Drama"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@like_202006280402.png,ox-24,oy-617,ow-29:ote-MTNrIGxpa2Vz,ots-29,otc-FFFFFF,oy-612,ox-70/et00124885-wrhhlnyqqd-portrait.jpg",
-            title:"Seetimaar",
-            subtitle:"Drama / Sport"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@like_202006280402.png,ox-24,oy-617,ow-29:ote-NGsgbGlrZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70/et00311839-uankdwgdkf-portrait.jpg",
-            title:"Dear Megha",
-            subtitle:"Romance / Drama"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@heart_202006300400.png,ox-24,oy-617,ow-29:ote-ODYlICAxNmsgdm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70/et00311840-ylqzleblfl-portrait.jpg",
-            title:"Raja Raja Chora",
-            subtitle:"Comedy / Drama"
-        },
-    ]
+    
 
     return(<>
         <MovieHero />
@@ -158,7 +112,7 @@ const MoviePage =() =>{
                 <h1 className="text-gray-800 font-bold text-2xl">
                     About the Movie
                 </h1>
-                <p>Dom`s peaceful life with his wife Letty and son Brian is shattered when Dom`s past catches up to him. The gang is up against the most skilled assassin and high-performance driver - his little brother Jakob.</p>
+                <p>{movie.overview}</p>
             </div>
             <div className="my-8">
                 <hr />
@@ -231,6 +185,12 @@ const MoviePage =() =>{
                 <PosterSlider config={settings} title="Recommended Movies" posters={similarMovies} isDark={false} />
 
             </div>
+
+            <div className="my-8">
+                <hr />
+            </div>
+
+            
                
         </div>
         

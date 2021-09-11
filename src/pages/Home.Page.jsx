@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React from 'react'
+import { useEffect, useState } from 'react/cjs/react.development';
 import EntertainmentCardSlider from '../components/Entertainment/EntertainmentCard.Component';
 import HeroCarousel from '../components/HeroCarousel/HeroCarousel.Component';
 import PosterSlider from '../components/PosterSlider/PosterSlider.Component';
@@ -6,106 +8,38 @@ import PosterSlider from '../components/PosterSlider/PosterSlider.Component';
 
 function HomePage() {
 
+    const [recommededMovies , setRecommededMovies] = useState([]);
 
-    const posters = [
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@heart_202006300400.png,ox-24,oy-617,ow-29:ote-OTMlICAxMWsgdm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70/et00122566-rhfsjjrlrc-portrait.jpg",
-            title:"Shan-Chi and the legend of ten Rings",
-            subtitle:"Action / Adventure / Fantacy"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@heart_202006300400.png,ox-24,oy-617,ow-29:ote-ODAlICA2ayB2b3Rlcw%3D%3D,ots-29,otc-FFFFFF,oy-612,ox-70/et00056556-cmljhpnhcd-portrait.jpg",
-            title:"Fast and Furious 9",
-            subtitle:"Action / Adventure / Crime / Thriller"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@heart_202006300400.png,ox-24,oy-617,ow-29:ote-NzAlICA4NjYgdm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70/et00308822-bbujjtsfjz-portrait.jpg",
-            title:"NOtokka Jillala Andagaadu",
-            subtitle:"Comedy / Drama"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@like_202006280402.png,ox-24,oy-617,ow-29:ote-MTNrIGxpa2Vz,ots-29,otc-FFFFFF,oy-612,ox-70/et00124885-wrhhlnyqqd-portrait.jpg",
-            title:"Seetimaar",
-            subtitle:"Drama / Sport"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@like_202006280402.png,ox-24,oy-617,ow-29:ote-NGsgbGlrZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70/et00311839-uankdwgdkf-portrait.jpg",
-            title:"Dear Megha",
-            subtitle:"Romance / Drama"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@heart_202006300400.png,ox-24,oy-617,ow-29:ote-ODYlICAxNmsgdm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70/et00311840-ylqzleblfl-portrait.jpg",
-            title:"Raja Raja Chora",
-            subtitle:"Comedy / Drama"
-        },
-    ]
+    const [premiereMovies , setPremiereMovies] = useState([]);
 
-    const premiersMovies = [
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:oi-discovery-catalog@@icons@@premiere-icon.png,ox-322,oy-20/et00312484-ehedpyzcmm-portrait.jpg",
-            title:"The Balkan Line",
-            subtitle:"English"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:oi-discovery-catalog@@icons@@premiere-icon.png,ox-322,oy-20/et00137316-unmwlqfqvd-portrait.jpg",
-            title:"The Nest",
-            subtitle:"English"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:oi-discovery-catalog@@icons@@premiere-icon.png,ox-322,oy-20/et00310648-uwreepnzec-portrait.jpg",
-            title:"The Resistance",
-            subtitle:"English"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:oi-discovery-catalog@@icons@@premiere-icon.png,ox-322,oy-20/et00137312-qszmhzktyk-portrait.jpg",
-            title:"The Secrets We Keep",
-            subtitle:"English"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:oi-discovery-catalog@@icons@@premiere-icon.png,ox-322,oy-20/et00137455-pxtjxgdyua-portrait.jpg",
-            title:"The Capone",
-            subtitle:"English"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:oi-discovery-catalog@@icons@@premiere-icon.png,ox-322,oy-20/et00302306-xxwtjnexzz-portrait.jpg",
-            title:"Proximity",
-            subtitle:"English"
-        },
-    ]
-    const onlineStream = [
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-VGh1LCAzMCBTZXA%3D,ots-29,otc-FFFFFF,oy-612,ox-24/et00304004-cpfnbdagcz-portrait.jpg",
-            title:"Data Science",
-            subtitle:"Online Streaming"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-U3VuLCA1IFNlcCBvbndhcmRz,ots-29,otc-FFFFFF,oy-612,ox-24/et00313611-cvhsuzcndb-portrait.jpg",
-            title:"Front Row Open Mic",
-            subtitle:"Watch On Zoom"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-VGh1LCAzMCBTZXA%3D,ots-29,otc-FFFFFF,oy-612,ox-24/et00304009-nsnwqmxhqm-portrait.jpg",
-            title:"Digital Marketting",
-            subtitle:"Online steaming"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-VGh1LCAzMCBTZXA%3D,ots-29,otc-FFFFFF,oy-612,ox-24/et00304005-lnegmxafyd-portrait.jpg",
-            title:"MBA",
-            subtitle:"Online Streaming"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-VGh1LCAzMCBTZXA%3D,ots-29,otc-FFFFFF,oy-612,ox-24/et00304004-cpfnbdagcz-portrait.jpg",
-            title:"Data Science",
-            subtitle:"Online Streaming"
-        },
-        {
-            src:"https://in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-U3VuLCA1IFNlcCBvbndhcmRz,ots-29,otc-FFFFFF,oy-612,ox-24/et00313611-cvhsuzcndb-portrait.jpg",
-            title:"Front Row Open Mic",
-            subtitle:"Watch On Zoom"
-        },
-    ]
-        
-        
+    const [onlineStreamMovies , setOnlineStreamMovies] = useState([]);
+
+
+    useEffect(() => {
+        const requestPopularMovies =async ()=>{
+            const getPopularMoies =await axios.get("/movie/popular");
+            setRecommededMovies(getPopularMoies.data.results);
+            
+        }
+        requestPopularMovies();
+    })
+    useEffect(() => {
+        const requestTopRatedMovies =async ()=>{
+            const getTopRatedMoies =await axios.get("/movie/top_rated");
+            setPremiereMovies(getTopRatedMoies.data.results);
+
+        }
+        requestTopRatedMovies();
+    })
+    useEffect(() => {
+        const requestUpComingMovies =async ()=>{
+            const getUpComingMovies =await axios.get("/movie/upcoming");
+            setOnlineStreamMovies(getUpComingMovies.data.results);
+
+        }
+        requestUpComingMovies();
+    })
+    
 
     return (
         <>
@@ -122,7 +56,7 @@ function HomePage() {
                 <PosterSlider  
                         title="Recommended MOvies" 
                         subtitle="List of recommended Movies"
-                        posters={posters}
+                        posters={recommededMovies}
                         isDark={false} />
 
             </div>
@@ -135,7 +69,7 @@ function HomePage() {
                      <PosterSlider  
                         title="Premiers" 
                         subtitle="Brand New Releases"
-                        posters={premiersMovies}
+                        posters={premiereMovies}
                         isDark={true} />
 
                 </div>
@@ -144,9 +78,9 @@ function HomePage() {
 
             <div className="container mx-auto px-12 my-8">
                 <PosterSlider  
-                        title="Recommended MOvies" 
+                        title="Online Streams" 
                         subtitle="List of recommended Movies"
-                        posters={onlineStream}
+                        posters={onlineStreamMovies}
                         isDark={false} />
 
             </div>

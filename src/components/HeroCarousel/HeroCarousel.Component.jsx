@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState,useEffect } from "react";
 import HeroSlider from 'react-slick';
 import { NextArrow, PrevArrow } from "./Arrows.Component";
 
 
 const HeroCarousel =()=>{
 
-    const [images , setImages]= useState([
-        "https://in.bmscdn.com/promotions/cms/creatives/1630432985528_incinemasthisfriday_shangchiandthelegendofthetenrings_webshowcase_1240x300.jpg",
-        "https://in.bmscdn.com/promotions/cms/creatives/1628591224466_fnbgeneric.jpg",
-        "https://in.bmscdn.com/promotions/cms/creatives/1630436030240_dearmegha_incinemasthisfridayknowmore_webshowcase_1240x300.jpg",
+    const [images , setImages]= useState([]);
 
-    ]);
+    useEffect(() =>{
+        const nowPlaying =async()=>{
+            const getImages= await axios.get("/movie/now_playing");
+            // console.log(getImages);
+            setImages(getImages.data.results);
+
+        };
+        
+        nowPlaying();
+
+    },[]);
 
     const settingsLG = {
         arrows: true,
@@ -44,7 +52,7 @@ const HeroCarousel =()=>{
                     <HeroSlider {...settings}>
                         { images.map((image) => (
                             <div className="w-full h-56 md:h-80 py-3">
-                                <img src={image} alt="Hero Banner" className="w-full h-full rounded-md object-center"/>
+                                <img src={`https://image.tmdb.org/t/p/original${image.backdrop_path}`} alt="Hero Banner" className="w-full h-full rounded-md object-center object-cover"/>
 
                             </div>
                         ))}
@@ -54,7 +62,7 @@ const HeroCarousel =()=>{
                     <HeroSlider {...settingsLG}>
                         {images.map((image) =>(
                             <div className="w-full h-96 px-2 py-3 ">
-                                <img src={image} alt="Hero Banner" className="w-full h-full rounded-md object-center" />
+                                <img src={`https://image.tmdb.org/t/p/original${image.backdrop_path}`} alt="Hero Banner" className="w-full h-full rounded-md object-center object-cover" />
 
                             </div>
 
